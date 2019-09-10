@@ -3,6 +3,7 @@ import { gql } from "apollo-boost";
 import React, { FC, useEffect, useState } from "react";
 import styled from "styled-components";
 import CountriesList from "../components/CountriesList";
+import CountrySearch from "../components/CountrySearch";
 import { Country, Get_CountriesQuery, Maybe } from "../generated/graphql";
 
 const GET_COUNTRIES = gql`
@@ -49,6 +50,10 @@ const Countries: FC = () => {
   return (
     <CountriesWrapper>
       <Title>Here you see a list of all countries and their languages</Title>
+      <CountrySearch
+        countries={data.countries}
+        setShownCountries={setShownCountries}
+      ></CountrySearch>
       <CountriesList countries={shownCountries}></CountriesList>
     </CountriesWrapper>
   );
