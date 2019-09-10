@@ -94,6 +94,23 @@ export type Get_CountriesQuery = (
   )>>> }
 );
 
+export type Get_CountryQueryVariables = {
+  code: Scalars['String']
+};
+
+
+export type Get_CountryQuery = (
+  { __typename?: 'Query' }
+  & { country: Maybe<(
+    { __typename?: 'Country' }
+    & Pick<Country, 'phone' | 'currency' | 'name' | 'native' | 'emoji'>
+    & { continent: Maybe<(
+      { __typename?: 'Continent' }
+      & Pick<Continent, 'name'>
+    )> }
+  )> }
+);
+
 export const Get_CountriesDocument = gql`
     query GET_COUNTRIES {
   countries {
@@ -138,3 +155,44 @@ export function withGet_Countries<TProps, TChildProps = {}>(operationOptions?: A
       
 export type Get_CountriesQueryHookResult = ReturnType<typeof useGet_CountriesQuery>;
 export type Get_CountriesQueryResult = ApolloReactCommon.QueryResult<Get_CountriesQuery, Get_CountriesQueryVariables>;
+export const Get_CountryDocument = gql`
+    query GET_COUNTRY($code: String!) {
+  country(code: $code) {
+    phone
+    currency
+    name
+    native
+    continent {
+      name
+    }
+    emoji
+  }
+}
+    `;
+export type Get_CountryComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<Get_CountryQuery, Get_CountryQueryVariables>, 'query'> & ({ variables: Get_CountryQueryVariables; skip?: boolean; } | { skip: boolean; });
+
+    export const Get_CountryComponent = (props: Get_CountryComponentProps) => (
+      <ApolloReactComponents.Query<Get_CountryQuery, Get_CountryQueryVariables> query={Get_CountryDocument} {...props} />
+    );
+    
+export type Get_CountryProps<TChildProps = {}> = ApolloReactHoc.DataProps<Get_CountryQuery, Get_CountryQueryVariables> & TChildProps;
+export function withGet_Country<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  Get_CountryQuery,
+  Get_CountryQueryVariables,
+  Get_CountryProps<TChildProps>>) {
+    return ApolloReactHoc.withQuery<TProps, Get_CountryQuery, Get_CountryQueryVariables, Get_CountryProps<TChildProps>>(Get_CountryDocument, {
+      alias: 'getCountry',
+      ...operationOptions
+    });
+};
+
+    export function useGet_CountryQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<Get_CountryQuery, Get_CountryQueryVariables>) {
+      return ApolloReactHooks.useQuery<Get_CountryQuery, Get_CountryQueryVariables>(Get_CountryDocument, baseOptions);
+    }
+      export function useGet_CountryLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<Get_CountryQuery, Get_CountryQueryVariables>) {
+        return ApolloReactHooks.useLazyQuery<Get_CountryQuery, Get_CountryQueryVariables>(Get_CountryDocument, baseOptions);
+      }
+      
+export type Get_CountryQueryHookResult = ReturnType<typeof useGet_CountryQuery>;
+export type Get_CountryQueryResult = ApolloReactCommon.QueryResult<Get_CountryQuery, Get_CountryQueryVariables>;
