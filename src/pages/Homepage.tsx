@@ -17,7 +17,7 @@ const CountriesDirectoryLink = styled(Link)`
   padding: 10px;
   font-size: 24px;
   border-radius: 10px;
-  border: 1px solid black;
+  border: 2px solid black;
   color: black;
   transition: all linear 0.1s;
 
